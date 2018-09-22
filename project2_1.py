@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 from openpyxl import load_workbook
 from numpy import genfromtxt
-from sklearn.datasets import load_boston
 
 def read_data():
     training_set = pd.read_excel('/Users/krystofe/Desktop/timeseries.xlsx', header=None, names=['features','labels'])
@@ -33,6 +32,7 @@ normalized_features = feature_normalize(features)
 f, l = append_bias_reshape(normalized_features,labels)
 n_dim = f.shape[1]
 
+#Uses the same data set for testing
 rnd_indices = np.random.rand(len(f)) < 0.80
 
 train_x = f[rnd_indices]
@@ -41,7 +41,7 @@ test_x = f[~rnd_indices]
 test_y = l[~rnd_indices]
 
 learning_rate = 0.01
-training_epochs = 300
+training_epochs = 1000
 cost_history = np.empty(shape=[1],dtype=float)
 
 X = tf.placeholder(tf.float32,[None,n_dim])
